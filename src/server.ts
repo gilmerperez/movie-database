@@ -48,7 +48,24 @@ app.get('/api/movies', (_req, res) => {
 
 // Delete a movie
 app.delete('/api/movie/:id', (req, res) => {
- 
+ const sql = `DELETE FROM movies WHERE id = $1`;
+ const params = [req.params.id];
+
+ pool.query(sql, params, (err: Error, result: QueryResult) => {
+  if (err) {
+    res.status(400).json({ error: err.message});
+  } else if (!result.rowCount) {
+    res.json({
+      message: `Movie not found!`
+    });
+  } else {
+    res.json({
+      message: `Movie deleted from database`,
+      changes: result.rowCount,
+      id: req.params.id
+    });
+  }
+ });
 });
 
 // Read list of all reviews and associated movie name using LEFT JOIN
