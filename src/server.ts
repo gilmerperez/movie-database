@@ -56,7 +56,7 @@ app.delete('/api/movie/:id', (req, res) => {
     res.status(400).json({ error: err.message});
   } else if (!result.rowCount) {
     res.json({
-      message: `Movie not found!`
+      message: `Movie not found`
     });
   } else {
     res.json({
@@ -78,7 +78,7 @@ app.get('/api/movie-reviews', (_req, res) => {
     }
     const { rows } = result;
     res.json({
-      message: 'success',
+      message: 'Success!',
       data: rows,
     });
   });
@@ -98,7 +98,7 @@ app.put('/api/review/:id', (req, res) => {
       });
     } else {
       res.json({
-        message: 'success',
+        message: 'Success!',
         data: req.body,
         changes: result.rowCount,
       });
