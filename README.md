@@ -1,4 +1,4 @@
-# Movie Database
+# Movie Database Using PostgreSQL
 
 This project is a simple Movie Database application that allows users to manage movies and their associated reviews. The core functionality is built around creating, retrieving, and deleting movies and reviews from a PostgreSQL database.
 
