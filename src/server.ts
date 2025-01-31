@@ -70,7 +70,18 @@ app.delete('/api/movie/:id', (req, res) => {
 
 // Read list of all reviews and associated movie name using LEFT JOIN
 app.get('/api/movie-reviews', (_req, res) => {
-  
+  const sql = `SELECT movies.movie_name AS movie, reviews.review FROM reviews LEFT JOIN movies ON reviews.movie_id = movies.id ORDER BY movies.movie_name;`;
+  pool.query(sql, (err: Error, result: QueryResult) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    const { rows } = result;
+    res.json({
+      message: 'success',
+      data: rows,
+    });
+  });
 });
 
 // BONUS: Update review
