@@ -18,6 +18,7 @@ Users can:
 - [Key Features](#key-features)
 - [Technology Stack](#technology-stack)
 - [Additional Resources](#additional-resources)
+- [Assets](#assets)
 
 ## Instructions
 
