@@ -19,7 +19,7 @@ app.post('/api/new-movie', ({ body }, res) => {
 
   pool.query(sql, params, (err, _result) => {
     if (err) {
-      res.status(400).json({error: err.message});
+      res.status(400).json({ error: err.message });
       return;
     }
     res.json({
@@ -31,7 +31,19 @@ app.post('/api/new-movie', ({ body }, res) => {
 
 // Read all movies
 app.get('/api/movies', (_req, res) => {
- 
+  const sql = `SELECT id, movie_name AS title FROM movies`;
+
+  pool.query(sql, (err: Error, result: QueryResult) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    const { rows } = result;
+    res.json({
+      message: 'Success!',
+      data: rows
+    });
+  });
 });
 
 // Delete a movie
