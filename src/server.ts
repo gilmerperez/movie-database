@@ -12,8 +12,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Create a movie
-app.post('/api/new-movie', (req, res) => {
+app.post('/api/new-movie', ({ body }, res) => {
+  const sql = `INSERT INTO movies (movie_name)
+              VALUES ($1)`;
+  const params = [body.movie_name];
 
+  pool.query(sql, params, (err, _result) => {
+    if (err) {
+      res.status(400).json({error: err.message});
+      return;
+    }
+    res.json({
+      message: 'Success!',
+      data: body
+    });
+  });
 });
 
 // Read all movies
