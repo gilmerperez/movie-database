@@ -86,7 +86,24 @@ app.get('/api/movie-reviews', (_req, res) => {
 
 // BONUS: Update review
 app.put('/api/review/:id', (req, res) => {
- 
+  const sql = `UPDATE reviews SET review = $1 WHERE id = $2`;
+  const params = [req.body.review, req.params.id];
+
+  pool.query(sql, params, (err: Error, result: QueryResult) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+    } else if (!result.rowCount) {
+      res.json({
+        message: 'Review not found',
+      });
+    } else {
+      res.json({
+        message: 'success',
+        data: req.body,
+        changes: result.rowCount,
+      });
+    }
+  });
 });
 
 // Default response for any other request (Not Found)
